@@ -10,11 +10,11 @@ class Product {
     ) {}
 
     private static products = [
-        new Product(1, 'ABCD7778', 100),
+        new Product(1, 'ABCD', 100),
         new Product(2, 'EFG', 150),
         new Product(3, 'HIJ', 34),
         new Product(4, 'ZZZ', 78),
-        new Product(100, 'XXX123456', 42)
+        new Product(100, 'XXX', 42)
     ]
 
     static getProducts() : Product[] {
