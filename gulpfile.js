@@ -1,25 +1,25 @@
 var gulp = require('gulp');
-var ts = require('gulp-typescript');
+//var ts = require('gulp-typescript');
 var tsc = require('gulp-tsc');
-var sourcemaps = require('gulp-sourcemaps');
+//var sourcemaps = require('gulp-sourcemaps');
 var nodemon = require('gulp-nodemon');
 var notify = require('gulp-notify');
-var mainNpmFiles = require('gulp-main-npm-files');
+//var mainNpmFiles = require('gulp-main-npm-files');
 //var nodeInspector = require('gulp-node-inspector');
 
-gulp.task('copyfiles', function() {
-    gulp.src('./sources/client/*/*.*')
-    .pipe(gulp.dest('./build/client'));
-    gulp.src('./sources/client/*.*')
-    .pipe(gulp.dest('./build/client'));
-    
-});
+
+//gulp.task('copyfiles', function () {
+//    gulp.src('./sources/client/*/*.*')
+//        .pipe(gulp.dest('./build/client'));
+//    gulp.src('./sources/client/*.*')
+//        .pipe(gulp.dest('./build/client'));
+//});
 
 // Copy dependencies to build/node_modules/ 
-gulp.task('copy-npm-deps', function() {
-    /*gulp.src(mainNpmFiles(), {base: './'})
-        .pipe(gulp.dest('./build'));*/
-});  
+/*gulp.task('copy-npm-deps', function() {
+    gulp.src(mainNpmFiles(), {base: './'})
+        .pipe(gulp.dest('./build'));
+}); */
 
 gulp.task('compile', function () {
     /*var tsProject = ts.createProject('tsconfig.json');
@@ -36,9 +36,10 @@ gulp.task('compile', function () {
   });
   
 gulp.task('watch', function() {
-    gulp.watch('sources/*/*.*', ['compile','copyfiles']);
+    gulp.watch('sources/*/*.*', ['compile']);
 });
 
+/*
 gulp.task('inspect', function () {
     gulp.src([]).pipe(nodeInspector ({
         debugPort: 5859,
@@ -46,10 +47,10 @@ gulp.task('inspect', function () {
         webPort: '8085',
         preload: false
     }));
-});
+});*/
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', [ 'compile', 'copyfiles', 'copy-npm-deps','watch'], function() {
+gulp.task('default', [ 'compile', 'watch'], function() {
     nodemon({
         script: 'build/server/rest-server.js',
         watch: ["sources/*/*.*"],

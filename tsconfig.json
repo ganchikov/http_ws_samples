@@ -7,11 +7,11 @@
     "outDir" : "build/server",
     "sourceMap": true
   }, 
-  "include": [
+  /*"include": [
     "sources/server"
-  ],
+  ],*/
   "exclude": [
-    "node_modules",
-    "sources/client"
+    "node_modules"
+    //"sources/client/app"
   ]
 }
