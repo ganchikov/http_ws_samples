@@ -12,9 +12,15 @@ import {WebSocketService} from './ws-observable-service';
 @Component({
     selector: 'socket-observer', 
     providers: [WebSocketService], 
-    template:   `<h1>Subscriber to a service</h1>
+    template:   `<h1>Web Socket Tester</h1>
+                <form #f="ngForm" (ngSubmit)="sendMessageToServer(f.value)">
+                    <label for="message">Enter message to send to server</label>
+                    <input id="message" type="string" name="messageToServer" ngModel>
+                    <button type="submit">Send message</button>
+                </form>
+                <br>
+                <label>Received a message from server:</label>
                 {{messageFromServer}}<br>
-                <button (click)="sendMessageToServer()">Send msg to Server</button>
                 `
 })
 class SocketComponent {
@@ -31,8 +37,8 @@ class SocketComponent {
             );
     }
 
-    sendMessageToServer() {
-        this.service.sendMessage("some msg");
+    sendMessageToServer(formValue) {
+        this.service.sendMessage(formValue.messageToServer);
     }
 }
 

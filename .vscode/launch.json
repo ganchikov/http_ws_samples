@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch Chrome",
             "url": "http://localhost:8000",
-            "webRoot": "${workspaceFolder}/build/client",
+            "webRoot": "${workspaceFolder}/sources/client",
             "preLaunchTask": null
         },
         {
