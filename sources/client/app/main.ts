@@ -5,11 +5,40 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule, Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {Service} from './service';
+import {HttpService} from './http-service';
+import {WebSocketService} from './ws-observable-service';
+
+
+@Component({
+    selector: 'socket-observer', 
+    providers: [WebSocketService], 
+    template:   `<h1>Subscriber to a service</h1>
+                {{messageFromServer}}<br>
+                <button (click)="sendMessageToServer()">Send msg to Server</button>
+                `
+})
+class SocketComponent {
+    messageFromServer: string;
+
+    constructor (private service: WebSocketService) {
+        this.service.createObservableSocket("ws://localhost:8085")
+            .subscribe(
+                data => {
+                    this.messageFromServer = data;
+                },
+                err => console.log (err),
+                () => console.log ('The observable stream is complete')
+            );
+    }
+
+    sendMessageToServer() {
+        this.service.sendMessage("some msg");
+    }
+}
 
 @Component({
     selector: 'http-client',
-    providers: [Service],
+    providers: [HttpService],
     template: `<h1>All ProductsX</h1>
     <form #f="ngForm" (ngSubmit)="getProductByID(f.value)">
         <label for="productID">Enter Product ID</label>
@@ -17,6 +46,7 @@ import {Service} from './service';
         <button type="submit">Find Product</button>
     </form>
     <h4>{{productTitle}} {{productPrice}}</h4>
+    <socket-observer></socket-observer>
     `
 })
 class AppComponent {
@@ -25,7 +55,7 @@ class AppComponent {
 
 
 
-    constructor (private service: Service) {
+    constructor (private service: HttpService) {
         
     }
 
@@ -44,7 +74,7 @@ class AppComponent {
 @NgModule(
     {
         imports: [BrowserModule, FormsModule, HttpModule],
-        declarations: [AppComponent],
+        declarations: [AppComponent, SocketComponent],
         bootstrap: [AppComponent]
     }
 )

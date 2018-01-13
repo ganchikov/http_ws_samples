@@ -58,6 +58,6 @@ gulp.task('default', [ 'compile', 'watch'], function() {
         exec: 'node --inspect'
     })
     .on('restart', () => {
-        gulp.src('server.js').pipe(notify('Restarted server due to code change'));
+        gulp.src('rest-server.js').pipe(notify('Restarted server due to code change'));
     });
 });

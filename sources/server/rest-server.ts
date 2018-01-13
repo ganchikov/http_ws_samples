@@ -36,6 +36,12 @@ app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'sources', 'client', 'main.html'))
     console.log('requested landing page');
 });
+
+app.get('/wstest', (req,res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'sources', 'client', 'wstest.html'));
+    console.log('requested ws test page');
+});
+
 app.get('/products', (req,res) => {
     res.json(Product.getProducts());
     console.log('requested products endpoint');
@@ -61,6 +67,10 @@ const server = app.listen(8000, 'localhost', () => {
 let wsServer: Server = new Server({port:8085});
 console.log('Websocket server listening on port 8085');
 
-wsServer.on('connection', webSocket => webSocket.send('This message was pushed by the Websocket server'));
+wsServer.on('connection', webSocket => {
+    webSocket.send('This message was pushed by the Websocket server')
+});
 
-
+wsServer.on('message', message => {
+    message => console.log("Server received: %s", message);
+});
